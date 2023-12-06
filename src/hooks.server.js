@@ -34,7 +34,7 @@ export const handle = SvelteKitAuth({
 
           refresh_token: account.refresh_token,
         }
-        console.log("account", account, token);
+        //console.log("account", account, token);
         return token
         //@ts-ignore
       } else if (Date.now() < token.expires_at) {
@@ -42,7 +42,7 @@ export const handle = SvelteKitAuth({
         //@ts-ignore
       } else if (token && Date.now() >= token.expires_at) {
         console.log("refresh");
-        console.log("token", token);
+        //console.log("token", token);
 
 
         try {
@@ -61,7 +61,7 @@ export const handle = SvelteKitAuth({
           })
 
           const tokens = await response.json()
-          console.log("tokens", tokens);
+          //console.log("tokens", tokens);
           if (!response.ok) throw tokens
           const returntoken = {
             ...token, // Keep the previous token properties
@@ -70,7 +70,7 @@ export const handle = SvelteKitAuth({
             expires_at_date: new Date(Math.floor(Date.now()/1000 + tokens.expires_in) * 1000),
             refresh_token: tokens.refresh_token,
           }
-          console.log("returntoken", returntoken);
+          //console.log("returntoken", returntoken);
           return returntoken
         } catch (error) {
           console.error("Error refreshing access token", error)
